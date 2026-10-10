@@ -1,0 +1,14 @@
+:{$PORT} {
+    # روت مربوط به ترافیک VLESS WebSocket
+    handle /ray-ws* {
+        reverse_proxy 127.0.0.1:10000 {
+            header_up Host {host}
+            header_up X-Real-IP {remote}
+        }
+    }
+
+    # روت مربوط به لینک ساب‌اسکریپشن و وب پنل پاسارگاد
+    handle /* {
+        reverse_proxy 127.0.0.1:8000
+    }
+}
